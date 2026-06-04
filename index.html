@@ -21,6 +21,18 @@
             const settingsUrl = url.searchParams.has('settings') ? url.searchParams.get('settings') : './settings.json';
             const contentUrl = url.searchParams.has('content') ? url.searchParams.get('content') : './scene.sog';
 
+            // Force-reload support: the reload button navigates to ?cb=<timestamp>.
+            // When present, append it to asset URLs so the browser disk cache AND the
+            // GitHub Pages CDN both miss (a new query string is a new cache key) and
+            // re-fetch fresh. Without it, normal visits use the cache (fast).
+            const cb = url.searchParams.get('cb');
+            const bust = (u) => cb ? (u + (u.includes('?') ? '&' : '?') + 'cb=' + encodeURIComponent(cb)) : u;
+
+            // The loaded splat file. Defined once so the fetch and the on-screen label
+            // (so you can confirm which version you're seeing) can't drift apart.
+            const sogName = "scene6.sog";
+            window.__sogName = sogName;
+
             const renderer = url.searchParams.has('webgl') ? 'webgl' : 'webgpu';
 
             const budgetParam = url.searchParams.get('budget');
@@ -31,7 +43,7 @@
                 skyboxUrl,
                 collisionUrl,
                 contentUrl,
-                contents: fetch("scene6.sog"),
+                contents: fetch(bust(sogName)),
                 noui: url.searchParams.has('noui'),
                 noanim: url.searchParams.has('noanim'),
                 nofx: url.searchParams.has('nofx'),
@@ -48,12 +60,39 @@
 
             window.sse = {
                 config: sseConfig,
-                settings: fetch(settingsUrl).then(response => response.json())
+                settings: fetch(bust(settingsUrl)).then(response => response.json())
             };
         </script>
     </head>
     <body>
         <canvas id="application-canvas"></canvas>
+
+        <!-- Top-left overlay: shows the loaded splat file + a force-reload button that
+             reloads with a fresh ?cb=<timestamp> so the SOG + settings re-download
+             instead of serving a stale cached/CDN copy. -->
+        <div id="reloadBar" style="position:fixed; top:calc(env(safe-area-inset-top,0px) + 10px);
+            left:10px; z-index:10000; display:flex; align-items:center; gap:8px;
+            font:600 13px/1 system-ui,-apple-system,sans-serif;">
+            <span id="sogLabel" title="Loaded splat file" style="padding:8px 10px;
+                border-radius:10px; background:rgba(20,20,20,0.6); color:#cfcfcf;
+                -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+                box-shadow:0 2px 8px rgba(0,0,0,0.4);">…</span>
+            <button id="forceReload" title="Force reload (bypass cache)" aria-label="Force reload"
+                style="display:flex; align-items:center; gap:6px; padding:8px 12px; border:none;
+                border-radius:10px; background:rgba(20,20,20,0.6); color:#fff;
+                font:inherit; cursor:pointer; -webkit-backdrop-filter:blur(6px);
+                backdrop-filter:blur(6px); box-shadow:0 2px 8px rgba(0,0,0,0.4);">
+                <span style="font-size:16px; line-height:1;">&#x21bb;</span> Reload
+            </button>
+        </div>
+        <script type="module">
+            document.getElementById('sogLabel').textContent = window.__sogName || 'splat';
+            document.getElementById('forceReload').addEventListener('click', () => {
+                const u = new URL(location.href);
+                u.searchParams.set('cb', Date.now().toString());
+                location.replace(u.toString());   // fresh ?cb= -> browser + CDN cache miss
+            });
+        </script>
 
         <div id="ui">
             <div id="poster"></div>
