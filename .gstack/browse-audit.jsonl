@@ -1,0 +1,3 @@
+{"ts":"2026-06-04T03:40:29.964Z","cmd":"goto","args":"https://phdev.github.io/electric-dreams-splat/?nocache=1780544426","origin":"https://phdev.github.io/electric-dreams-splat/?nocache=1780544426","durationMs":644,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-06-04T03:40:31.444Z","cmd":"wait","args":"--networkidle","origin":"https://phdev.github.io/electric-dreams-splat/?nocache=1780544426","durationMs":1428,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-06-04T03:40:36.085Z","cmd":"screenshot","args":"/tmp/qa_live.png","origin":"https://phdev.github.io/electric-dreams-splat/?nocache=1780544426","durationMs":572,"status":"ok","hasCookies":false,"mode":"headed"}
