@@ -8,3 +8,6 @@
 {"ts":"2026-06-04T14:55:14.837Z","cmd":"wait","args":"--networkidle","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780584909","durationMs":1517,"status":"ok","hasCookies":false,"mode":"headed"}
 {"ts":"2026-06-04T14:55:19.395Z","cmd":"screenshot","args":"/tmp/live_btn.png","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780584909","durationMs":493,"status":"ok","hasCookies":false,"mode":"headed"}
 {"ts":"2026-06-04T14:55:19.447Z","cmd":"network","args":"","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780584909","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-06-04T21:39:04.560Z","cmd":"goto","args":"https://phdev.github.io/electric-dreams-splat/?cb=1780609141","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780609141","durationMs":548,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-06-04T21:39:06.364Z","cmd":"wait","args":"--networkidle","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780609141","durationMs":1742,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-06-04T21:39:11.440Z","cmd":"network","args":"","origin":"https://phdev.github.io/electric-dreams-splat/?cb=1780609141","durationMs":2,"status":"ok","hasCookies":false,"mode":"headed"}
