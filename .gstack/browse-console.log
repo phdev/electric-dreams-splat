@@ -1,3 +1,4 @@
-[2026-06-05T08:21:24.507Z] [log] SuperSplat Viewer v1.26.2 | Engine v2.19.2 (3f52bb8)
-[2026-06-05T08:21:24.513Z] [log] Renderer: webgpu
-[2026-06-05T08:21:24.707Z] [error] Failed to load resource: the server responded with a status of 404 ()
+[2026-06-05T13:46:32.918Z] [error] Failed to load resource: the server responded with a status of 401 (Unauthorized)
+[2026-06-05T13:46:34.864Z] [log] SuperSplat Viewer v1.26.2 | Engine v2.19.2 (3f52bb8)
+[2026-06-05T13:46:34.870Z] [log] Renderer: webgpu
+[2026-06-05T13:46:35.029Z] [error] Failed to load resource: the server responded with a status of 404 ()
