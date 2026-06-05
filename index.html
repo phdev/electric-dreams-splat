@@ -75,10 +75,10 @@
         <div id="reloadBar" style="position:fixed; top:calc(env(safe-area-inset-top,0px) + 10px);
             left:10px; z-index:10000; display:flex; align-items:center; gap:8px;
             font:600 13px/1 system-ui,-apple-system,sans-serif;">
-            <span id="sogLabel" title="Loaded splat file" style="padding:8px 10px;
-                border-radius:10px; background:rgba(20,20,20,0.6); color:#cfcfcf;
-                -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
-                box-shadow:0 2px 8px rgba(0,0,0,0.4);">…</span>
+            <select id="sogPicker" title="Switch splat version" style="padding:8px 10px;
+                border-radius:10px; background:rgba(20,20,20,0.6); color:#e8e8e8; border:none;
+                font:inherit; cursor:pointer; -webkit-backdrop-filter:blur(6px);
+                backdrop-filter:blur(6px); box-shadow:0 2px 8px rgba(0,0,0,0.4); max-width:62vw;"></select>
             <button id="forceReload" title="Force reload (bypass cache)" aria-label="Force reload"
                 style="display:flex; align-items:center; gap:6px; padding:8px 12px; border:none;
                 border-radius:10px; background:rgba(20,20,20,0.6); color:#fff;
@@ -88,7 +88,36 @@
             </button>
         </div>
         <script type="module">
-            document.getElementById('sogLabel').textContent = window.__sogName || 'splat';
+            // Splat-version dropdown: switch the loaded SOG via ?content=<file> + a fresh
+            // ?cb= (so the browser + CDN re-fetch). Newest first; the loaded one is selected.
+            const SCENES = [
+                { file: 'scene16.sog', label: 'scene16 · 3DGS-MCMC 5M (no-sky)' },
+                { file: 'scene15.sog', label: 'scene15 · 3DGS-MCMC (no-sky)' },
+                { file: 'scene14.sog', label: 'scene14 · 2DGS (cohesive)' },
+            ];
+            const picker = document.getElementById('sogPicker');
+            const cur = window.__sogName || 'scene15.sog';
+            // Only list SOGs that actually exist (HEAD probe), so a not-yet-deployed
+            // scene (e.g. scene16 while it trains) doesn't show a broken option — it
+            // appears automatically once uploaded. The loaded one is always shown.
+            const addOpt = (s, sel) => {
+                const o = document.createElement('option');
+                o.value = s.file; o.textContent = s.label; o.selected = sel;
+                picker.appendChild(o);
+            };
+            (async () => {
+                for (const s of SCENES) {
+                    let ok = s.file === cur;
+                    if (!ok) { try { ok = (await fetch(s.file, { method: 'HEAD' })).ok; } catch { ok = false; } }
+                    if (ok) addOpt(s, s.file === cur);
+                }
+            })();
+            picker.addEventListener('change', () => {
+                const u = new URL(location.href);
+                u.searchParams.set('content', picker.value);
+                u.searchParams.set('cb', Date.now().toString());
+                location.replace(u.toString());
+            });
             document.getElementById('forceReload').addEventListener('click', () => {
                 const u = new URL(location.href);
                 u.searchParams.set('cb', Date.now().toString());
