@@ -32,7 +32,7 @@
             // (so you can confirm which version you're seeing) can't drift apart.
             // ?content=<file> overrides the default so you can A/B compare versions live
             // (e.g. ?content=scene14.sog for the previous 2DGS splat).
-            const sogName = url.searchParams.get('content') || "scene21.sog";
+            const sogName = url.searchParams.get('content') || "scene24.sog";
             window.__sogName = sogName;
 
             const renderer = url.searchParams.has('webgl') ? 'webgl' : 'webgpu';
@@ -91,7 +91,8 @@
             // Splat-version dropdown: switch the loaded SOG via ?content=<file> + a fresh
             // ?cb= (so the browser + CDN re-fetch). Newest first; the loaded one is selected.
             const SCENES = [
-                { file: 'scene21.sog', label: 'scene21 · DEPTH + SPIRE (warm capture, gentle depth) — DEFAULT', settings: 'scene21.json' },
+                { file: 'scene24.sog', label: 'scene24 · NUCLEAR CONCAT (foliage-off + foliage-on, depth-trained, 1.04M gauss) — DEFAULT', settings: 'scene24.json' },
+                { file: 'scene21.sog', label: 'scene21 · DEPTH + SPIRE (warm capture, gentle depth)', settings: 'scene21.json' },
                 { file: 'scene23.sog', label: 'scene23 · NUCLEAR merge full-res (under-densified, experimental)', settings: 'scene23.json' },
                 { file: 'scene22.sog', label: 'scene22 · NUCLEAR merged (foliage-off + on, -r2, under-densified — experimental)', settings: 'scene22.json' },
                 { file: 'scene20.sog', label: 'scene20 · DEPTH w0.25 no-spire (capture missed spire)', settings: 'scene20.json' },
