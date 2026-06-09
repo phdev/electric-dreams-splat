@@ -32,7 +32,7 @@
             // (so you can confirm which version you're seeing) can't drift apart.
             // ?content=<file> overrides the default so you can A/B compare versions live
             // (e.g. ?content=scene14.sog for the previous 2DGS splat).
-            const sogName = url.searchParams.get('content') || "scene25_mobile.sog";
+            const sogName = url.searchParams.get('content') || "scene26.sog";
             window.__sogName = sogName;
 
             const renderer = url.searchParams.has('webgl') ? 'webgl' : 'webgpu';
@@ -91,7 +91,8 @@
             // Splat-version dropdown: switch the loaded SOG via ?content=<file> + a fresh
             // ?cb= (so the browser + CDN re-fetch). Newest first; the loaded one is selected.
             const SCENES = [
-                { file: 'scene25_mobile.sog', label: 'scene25-mobile · OPTIMIZED scene25 (dedup + tight clean, 1.63M gauss, 20MB) — DEFAULT', settings: 'scene25_mobile.json' },
+                { file: 'scene26.sog', label: 'scene26 · SPIRE-PATCHED mobile (v1 + standalone spire layer, 2.18M, 26MB) — DEFAULT', settings: 'scene26.json' },
+                { file: 'scene25_mobile.sog', label: 'scene25-mobile · optimized scene25 (1.63M, 20MB — back-of-spire gap)', settings: 'scene25_mobile.json' },
                 { file: 'scene25.sog', label: 'scene25 · FULL VISIBILITY (foliage-on + foliage-off concat, 3.29M gauss, 40MB)', settings: 'scene25.json' },
                 { file: 'scene24.sog', label: 'scene24 · NUCLEAR CONCAT (1.04M gauss, prior best)', settings: 'scene24.json' },
                 { file: 'scene21.sog', label: 'scene21 · DEPTH + SPIRE (warm capture, gentle depth)', settings: 'scene21.json' },
