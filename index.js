@@ -85180,6 +85180,11 @@ class DebugPanel {
         this._global = global;
         this._cameraManager = cameraManager;
         window.addEventListener('keydown', this._onKeyDown);
+        // PATCH(poseHud): expose pose capture/restore WITHOUT requiring ?debug,
+        // so the index.html pose readout works for everyone (used to reproduce
+        // user-reported gap views exactly).
+        window.getCameraState = () => captureCameraState(this._cameraManager, this._global.state);
+        window.setCameraState = snapshot => restoreCameraState(this._cameraManager, this._global.state, snapshot);
         if (global.config.debug) {
             this.show();
         }

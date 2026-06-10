@@ -141,6 +141,33 @@
             });
         </script>
 
+        <!-- Live camera-pose readout (bottom-left). Screenshot a problem view and the
+             numbers in the corner let us reproduce that EXACT camera locally:
+             tgt = orbit focal point (viewer coords), ang = pitch/yaw, d = orbit radius.
+             Rebuild via window.setCameraState({position:tgt, angles:[p,y,0], distance:d}). -->
+        <div id="poseHud" style="position:fixed; left:10px;
+            bottom:calc(env(safe-area-inset-bottom,0px) + 10px); z-index:10000;
+            font:500 11px/1.35 ui-monospace,Menlo,monospace; color:#9fe89f;
+            background:rgba(10,10,10,0.55); padding:5px 8px; border-radius:8px;
+            pointer-events:none; white-space:pre; -webkit-backdrop-filter:blur(4px);
+            backdrop-filter:blur(4px);"></div>
+        <script>
+            (function () {
+                const hud = document.getElementById('poseHud');
+                const f = (v) => (Math.abs(v) < 0.05 ? 0 : v).toFixed(1);
+                setInterval(() => {
+                    try {
+                        if (typeof window.getCameraState !== 'function') { hud.textContent = ''; return; }
+                        const s = window.getCameraState();
+                        hud.textContent =
+                            'tgt ' + s.position.map(f).join(',') +
+                            '  ang ' + f(s.angles[0]) + ',' + f(s.angles[1]) +
+                            '  d ' + f(s.distance);
+                    } catch (e) { /* viewer not ready */ }
+                }, 250);
+            })();
+        </script>
+
         <div id="ui">
             <div id="poster"></div>
 
@@ -650,7 +677,7 @@
 
         <!-- Application Script -->
         <script type="module">
-            import { main } from './index.js';
+            import { main } from './index.js?v=posehud1';  // bump ?v= on every index.js patch (CDN/browser cache-bust)
 
             const { config, settings } = window.sse;
             const { poster } = config;
