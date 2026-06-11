@@ -32,7 +32,7 @@
             // (so you can confirm which version you're seeing) can't drift apart.
             // ?content=<file> overrides the default so you can A/B compare versions live
             // (e.g. ?content=scene14.sog for the previous 2DGS splat).
-            const sogName = url.searchParams.get('content') || "scene32.sog";
+            const sogName = url.searchParams.get('content') || "scene34.sog";
             window.__sogName = sogName;
 
             const renderer = url.searchParams.has('webgl') ? 'webgl' : 'webgpu';
@@ -91,7 +91,8 @@
             // Splat-version dropdown: switch the loaded SOG via ?content=<file> + a fresh
             // ?cb= (so the browser + CDN re-fetch). Newest first; the loaded one is selected.
             const SCENES = [
-                { file: 'scene32.sog', label: 'scene32 · NATURAL LIGHT + SEALED (color-only finetune on natural capture over scene31 geometry, 1.51M, 19MB) — DEFAULT', settings: 'scene32.json' },
+                { file: 'scene34.sog', label: 'scene34 · NATURAL ONE-PASS (alpha-seal trained directly on natural capture — no fill lights, no finetune; 1.35M, 17MB) — DEFAULT', settings: 'scene34.json' },
+                { file: 'scene32.sog', label: 'scene32 · natural-light finetune (warm-strip artifact on shadow face)', settings: 'scene32.json' },
                 { file: 'scene31.sog', label: 'scene31 · alpha-sealed (watertight but fill-lit: natural shadow erased)', settings: 'scene31.json' },
                 { file: 'scene30.sog', label: 'scene30 · base-band fill + close orbit (shell leaks: despike + black-bg training)', settings: 'scene30.json' },
                 { file: 'scene29.sog', label: 'scene29 · fill-light retrain (back face solid; base band dark up close)', settings: 'scene29.json' },
