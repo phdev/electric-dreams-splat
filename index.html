@@ -32,7 +32,7 @@
             // (so you can confirm which version you're seeing) can't drift apart.
             // ?content=<file> overrides the default so you can A/B compare versions live
             // (e.g. ?content=scene14.sog for the previous 2DGS splat).
-            const sogName = url.searchParams.get('content') || "scene39.sog";
+            const sogName = url.searchParams.get('content') || "scene40.sog";
             window.__sogName = sogName;
 
             const renderer = url.searchParams.has('webgl') ? 'webgl' : 'webgpu';
@@ -106,7 +106,8 @@
             // Splat-version dropdown: switch the loaded SOG via ?content=<file> + a fresh
             // ?cb= (so the browser + CDN re-fetch). Newest first; the loaded one is selected.
             const SCENES = [
-                { file: 'scene39.sog', label: 'scene39 · CANYON AMPHITHEATER showcase (dome-grid rig, depth-primary; gate MAE 0.0035, 3.2M, 38MB) — DEFAULT', settings: 'scene39.json' },
+                { file: 'scene40.sog', label: 'scene40 · CANYON spire-sealed + foliage-denoised (tight spire orbits + temporal avg; 5.2M, 65MB) — DEFAULT', settings: 'scene40.json' },
+                { file: 'scene39.sog', label: 'scene39 · canyon dome-grid showcase (lighter 38MB; spires see-through up close)', settings: 'scene39.json' },
                 { file: 'scene38.sog', label: 'scene38 · island UNIVERSAL RECIPE (depth-primary, island tier; 1.47M, 18.5MB)', settings: 'scene38.json' },
                 { file: 'scene37.sog', label: 'scene37 · canyon draft (3-dome axis rig — superseded by scene39 dome-grid)', settings: 'scene37.json' },
                 { file: 'scene36.sog', label: 'scene36 · gully ring (photometric-primary recipe)', settings: 'scene36.json' },
