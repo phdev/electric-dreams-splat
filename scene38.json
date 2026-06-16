@@ -47,19 +47,19 @@
     {
       "initial": {
         "position": [
-          71.04,
-          25.65,
-          71.04
+          60.0,
+          11.0,
+          -40.0
         ],
         "target": [
           0.0,
-          0.0,
+          15.0,
           0.0
         ],
-        "fov": 50
+        "fov": 60
       }
     }
   ],
   "annotations": [],
-  "startMode": "default"
+  "startMode": "hold"
 }
